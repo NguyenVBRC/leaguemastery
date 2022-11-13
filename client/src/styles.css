@@ -43,6 +43,10 @@ input#search:focus {
     margin-bottom: 1rem;
 }
 
+#search__button:hover{
+    color: red;
+}
+
 #summoner__icon {
     margin: 1rem 0;
 }
