@@ -3,46 +3,15 @@ import axios from "axios";
 import "./styles.css";
 
 export default function App() {
-  const API_KEY = "RGAPI-3b16c2b7-f822-4e11-bef7-693e181035b9";
-  const summonerIcon =
-    "http://ddragon.leagueoflegends.com/cdn/12.21.1/img/profileicon/";
+  const API_KEY = "RGAPI-9bf00934-fb72-434b-9ef2-f92a64e43075";
+  const summonerIcon = "http://ddragon.leagueoflegends.com/cdn/12.21.1/img/profileicon/";
 
   const [searchText, setSearchText] = useState("");
   const [playerData, setPlayerData] = useState({});
-
   const [version, setVersion] = useState("");
-  //   let latestVersion = version[0];
-
   const [summonerId, setSummonerId] = useState({});
   const [masteryData, setMasteryData] = useState({});
-
   const [champJson, setChampJson] = useState();
-
-  function GetLatestVersion() {
-    axios
-      .get("https://ddragon.leagueoflegends.com/api/versions.json")
-      .then((response) => {
-        setVersion(response.data[0]);
-        // console.log(response.data[0]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  function GetChampJson() {
-    axios
-      .get(
-        `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`
-      )
-      .then((response) => {
-        setChampJson(Object.values(response.data)[3]);
-        // console.log(Object.values(champJson)[0].key);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
 
   function SearchForPlayer(e) {
     const API_PROFILE = `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${searchText}?api_key=${API_KEY}`;
@@ -57,19 +26,7 @@ export default function App() {
       .catch(function (error) {
         console.log(error);
       });
-    // GetLatestVersion();
-    // GetChampJson();
-    // FindChampName();
   }
-
-  // function FindChampName(){
-  //     for (const key in champJson){
-  //         if (champJson.hasOwnProperty(key)){
-  //             console.log(`${key}: ${champJson[key].key}`)
-  //         }
-  //     }
-  // }
-
   function SearchForMastery(e) {
     const API_MASTERY = `https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerId}?api_key=${API_KEY}`;
     axios
@@ -83,16 +40,32 @@ export default function App() {
       });
   }
 
-  useEffect(() => {
-    if (version === "") {
-      GetLatestVersion();
-    }
-  });
+//   function GetLatestVersion() {
+//             axios
+//             .get("https://ddragon.leagueoflegends.com/api/versions.json")
+//             .then((response) => {
+//               setVersion(response.data[0]);
+//               console.log(version);
+//             })
+//             .catch((error) => {
+//               console.log(error);
+//             });
+//   }
 
-  useEffect(() => {
-    GetChampJson();
-    console.log(champJson);
-  }, [version]);
+  function GetChampJson() {
+            // axios
+            // .get(
+            //   `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`
+            // )
+            // .then((response) => {
+            //   setChampJson(Object.values(response.data)[3]);
+            //   console.log('Got Champ Json');
+            // })
+            // .catch((error) => {
+            //   console.log(error);
+            // });
+            console.log('test')
+  }
 
   return (
     <div className="container">
@@ -104,7 +77,7 @@ export default function App() {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             SearchForPlayer(e);
-          }
+          };
         }}
         placeholder="ID"
         id="search"
@@ -112,12 +85,9 @@ export default function App() {
       <button onClick={(e) => SearchForPlayer(e)} id="search__button">
         Search ID
       </button>
-      <button onClick={(e) => SearchForMastery(e)} id="search__button">
+      {/* <button onClick={(e) => SearchForMastery(e)} id="search__button">
         Search Mastery
-      </button>
-      <button onClick={(e) => GetChampJson(e)} id="search__button">
-        Get Mastery
-      </button>
+      </button> */}
       {JSON.stringify(playerData) !== "{}" ? (
         <>
           <p>{playerData.name}</p>
